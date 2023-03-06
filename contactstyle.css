@@ -1,3 +1,8 @@
+body {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
 header {
   margin-top: 50px;
   display: flex;
@@ -66,6 +71,31 @@ input[type="text"]::placeholder {
   border: none;
   color: white;
   font-size: 20px;
+}
+
+.div3 select {
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.div3 select:hover {
+  border-color: #999;
+}
+
+.div3 select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.div3 option {
+  background-color: #fff;
+  color: #333;
+  font-size: 16px;
 }
 
 
