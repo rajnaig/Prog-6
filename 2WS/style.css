@@ -1,0 +1,62 @@
+body {
+    max-width: 1000px;
+    margin: 0 auto;
+    border-radius: 10px
+  }
+h1{
+    font-size: 30px;
+    margin-bottom: 20px;
+    font-weight:700;
+  }
+
+.container {
+    display: flex;
+  }
+  .column {
+    flex: 1; /* Divide the available horizontal space equally among the columns */
+    background-color: #323031;
+    color: white;
+  }
+
+
+  
+
+#input_Send {
+    text-align: center; /* Center the text within the div */
+    background-color: #FFC857; /* Optional: add a background color for visual separation */
+    padding: 20px; /* Optional: add padding to the div for better readability */
+    color: #323031;
+  }
+
+  .todo-item {
+    margin: 30px;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+
+.column{
+    text-align: center;
+}
+
+.todo-item.priority-1 {
+    background-color: #FF7A1D;
+  }
+  
+  .todo-item.priority-2 {
+    background-color: #b3a120;
+  }
+  
+  .todo-item.priority-3 {
+    background-color: #20ad16;
+  }
+  
+  .todo-item.priority-4 {
+    background-color: #E10000;
+  }
+
+  .done {
+    text-decoration: line-through;
+  }
+  
+
