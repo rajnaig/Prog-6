@@ -2,86 +2,176 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
 
-    <meta charset="UTF-8">
-    <title></title>
-    <style>
-        body {
-            padding: 40px;
-            padding-left:150px;
-            padding-right:150px;
-        }
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    body {
+      padding: 40px;
+      padding-left: 150px;
+      padding-right: 150px;
+    }
 
-        table img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-        }
-    </style>
+    table img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+  </style>
 </head>
 
 <body>
 
-    <div id="app">
-        <h1>
-            <div class="alert alert-success" role="alert">
-                <strong>Student Manager 
+  <div id="app">
+    <h1>
+      <div class="alert alert-success" role="alert">
 
-                    <a type="button" class="btn btn-success">
-                        ({{ studentCounter }})
-                    </a>
-                </strong>
-                <h5>(2023 tavaszi félév)</h5>
-                <a type="button" class="btn btn-warning" href="https://vuejs.org/">
-                    Vue Js 
-                </a>
-            </div>
-        </h1>
+        <strong>
+          <h1><i class="fa fa-user-graduate"></i> Student Manager</h1>
+        </strong>
+        <h5>(2023 tavaszi félév)</h5>
+        <a type="button" class="btn btn-warning" href="https://vuejs.org/">
+          Vue Js
+        </a>
+        <a type="button" class="btn btn-success">
+          ({{ studentCounter }})
+        </a>
+      </div>
+    </h1>
+    <hr>
+    <br>
 
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+      <h2>Update Student</h2>
+      <form @submit.prevent="updateStudent">
+        <div class="form-group">
+          <label for="id">ID</label>
+          <input type="text" class="form-control" id="id" v-model="currentStudent.id" disabled>
+        </div>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" v-model="currentStudent.name">
+        </div>
+        <div class="form-group">
+          <label for="isActive">Active</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="isActive" id="activeYes" value="true" v-model="currentStudent.isActive">
+            <label class="form-check-label" for="activeYes">
+              Yes
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="isActive" id="activeNo" value="false" v-model="currentStudent.isActive">
+            <label class="form-check-label" for="activeNo">
+              No
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="birthYear">Birth Year</label>
+          <select class="form-control" id="input-birthYear" name="birthYear" v-model="currentStudent.birthYear">
+            <option aria-placeholder="">Select your birth year</option>
+            <script>
+              // Generate birth year options from the current year to 100 years ago
+              const currentYear = new Date().getFullYear();
+              const select = document.getElementById('input-birthYear');
+              for (let year = currentYear; year >= currentYear - 120; year--) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.text = year;
+                select.appendChild(option);
+              }
+            </script>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="connections">Connections</label>
+          <input type="number" class="form-control" id="connections" v-model="currentStudent.connections">
+        </div>
+        <div class="form-group">
+          <label for="completedCredits">Completed Credits</label>
+          <input type="number" class="form-control" id="completedCredits" v-model="currentStudent.completedCredits">
+        </div>
+        <div class="form-group">
+          <label for="activeSemesterCount">Active Semester Count</label>
+          <input type="number" class="form-control" id="activeSemesterCount" v-model="currentStudent.activeSemesterCount">
+        </div>
+        <div class="form-group">
+          <label for="image">Image URL</label>
+          <input type="text" class="form-control" id="image" v-model="currentStudent.image">
+        </div>
         <br>
-
-        <h1>Student List</h1>
-        <table class="table table-success table-striped-columns">
-            <thead class="table-dark">
-              <tr>
-                <th>Number</th>
-                <th>Image</th>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Active</th>
-                <th>Birth Year</th>
-                <th>Connections</th>
-                <th>Completed Credits</th>
-                <th>Active Semester Count</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(student, index) in students" @click="logStudentInfo(student)">
-                <td>{{ index + 1 }}</td>
-                <td>
-                  <img :src="student.image" alt="Student Image" v-if="student.image" />
-                </td>
-                <td>{{ student.id }}</td>
-                <td>{{ student.name }}</td>
-                <td>{{ student.isActive }}</td>
-                <td>{{ student.birthYear }}</td>
-                <td>{{ student.connections }}</td>
-                <td>{{ student.completedCredits }}</td>
-                <td>{{ student.activeSemesterCount }}</td>
-                <td><button type="button" class="btn btn-danger" @click.stop="deleteStudentById(student.id)">Delete</button></td>
-              </tr>
-            </tbody>
-          </table>
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
     </div>
 
+    <br>
+    <hr>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <h2>Add New Student</h2>
+      <form @submit.prevent>
+        <div class="form-group">
+          <label for="newStudentJson">New Student <strong>JSON</strong></label>
+          <input type="text" class="form-control" id="newStudentJson" v-model="newStudentJson">
+        </div>
+        <br>
+        <button type="button" class="btn btn-primary" @click="addStudent(newStudentJson)">Add Student</button>
+      </form>
+    </div>
+    <hr>
+    <br>
+    <h2>Student Table</h2>
+    <table class="table table-striped table-striped-columns table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>Number</th>
+          <th>Image</th>
+          <th>Name</th>
+          <th>ID</th>
+          <th>Active</th>
+          <th>Birth Year</th>
+          <th>Connections</th>
+          <th>Completed Credits</th>
+          <th>Active Semester Count</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(student, index) in students" @click="logStudentInfo(student)">
+          <td>{{ index + 1 }}</td>
+          <td>
+            <img :src="student.image" alt="Student Image" v-if="student.image" :class="borderColor(student.isActive)" />
+          </td>
+          <td :class="studentNameColor(student.isActive)">{{ student.name }}</td>
+          <td>{{ student.id }}</td>
+          <td>{{ student.isActive }}</td>
+          <td>{{ student.birthYear }}</td>
+          <td>{{ student.connections }}</td>
+          <td>{{ student.completedCredits }}</td>
+          <td>{{ student.activeSemesterCount }}</td>
+          <td><button type="button" class="btn btn-danger" @click.stop="deleteStudentById(student.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <hr>
 
-    <script src="index.js" type="module"></script>
+  </div>
+
+  <script src="index.js" type="module"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>
