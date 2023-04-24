@@ -30,10 +30,15 @@
     <div id="app">
         <h1>
             <div class="alert alert-success" role="alert">
-                <strong>Student Manager</strong>
+                <strong>Student Manager 
+
+                    <a type="button" class="btn btn-success">
+                        ({{ studentCounter }})
+                    </a>
+                </strong>
                 <h5>(2023 tavaszi félév)</h5>
                 <a type="button" class="btn btn-warning" href="https://vuejs.org/">
-                    Vue Js
+                    Vue Js 
                 </a>
             </div>
         </h1>
@@ -43,35 +48,36 @@
         <h1>Student List</h1>
         <table class="table table-success table-striped-columns">
             <thead class="table-dark">
-                <tr>
-                    <th>Image</th>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Active</th>
-                    <th>Birth Year</th>
-                    <th>Connections</th>
-                    <th>Completed Credits</th>
-                    <th>Active Semester Count</th>
-                    <th>Delete</th>
-                </tr>
+              <tr>
+                <th>Number</th>
+                <th>Image</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Active</th>
+                <th>Birth Year</th>
+                <th>Connections</th>
+                <th>Completed Credits</th>
+                <th>Active Semester Count</th>
+                <th>Delete</th>
+              </tr>
             </thead>
             <tbody>
-                <tr v-for="student in students">
-                    <td>
-                        <img :src="student.image" alt="Student Image" v-if="student.image" />
-                    </td>
-                    <td>{{ student.id }}</td>
-                    <td>{{ student.name }}</td>
-                    <td>{{ student.isActive }}</td>
-                    <td>{{ student.birthYear }}</td>
-                    <td>{{ student.connections }}</td>
-                    <td>{{ student.completedCredits }}</td>
-                    <td>{{ student.activeSemesterCount }}</td>
-                    <td><button type="button" class="btn btn-danger">Delete</button></td>
-
-                </tr>
+              <tr v-for="(student, index) in students" @click="logStudentInfo(student)">
+                <td>{{ index + 1 }}</td>
+                <td>
+                  <img :src="student.image" alt="Student Image" v-if="student.image" />
+                </td>
+                <td>{{ student.id }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.isActive }}</td>
+                <td>{{ student.birthYear }}</td>
+                <td>{{ student.connections }}</td>
+                <td>{{ student.completedCredits }}</td>
+                <td>{{ student.activeSemesterCount }}</td>
+                <td><button type="button" class="btn btn-danger" @click.stop="deleteStudentById(student.id)">Delete</button></td>
+              </tr>
             </tbody>
-        </table>
+          </table>
     </div>
 
 
