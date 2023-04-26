@@ -1,10 +1,71 @@
 <div class="content" role="main">
   <h1>
-    Test
+    Test <span class="badge rounded-pill bg-warning text-dark">{{counter()}}
+    </span>
   </h1>
+  <button type="button"  class="btn btn-outline-warning" (click)="countBrands()">Count Brands</button>
+  <button type="button" class="btn btn-outline-warning" (click)="avgRatings()">Average Ratings</button>
+  <button type="button" class="btn btn-outline-warning" (click)="stockLevel()">Stock Level</button>
+  <hr>
+  <div class="alert alert-primary alert-dismissible fade show" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <h2>Update Product</h2>
+    <form #updateProductForm="ngForm" (submit)="updateProduct()">
+      <div class="form-group">
+        <label for="id">ID</label>
+        <input type="number" class="form-control" id="id" [(ngModel)]="currentProduct.id" [readonly]="true" name="id">
+      </div>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" [(ngModel)]="currentProduct.title" name="title">
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" [(ngModel)]="currentProduct.description" name="description" rows="3" style="height:auto;"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number" class="form-control" id="price" [(ngModel)]="currentProduct.price" name="price">
+      </div>
+      <div class="form-group">
+        <label for="discountPercentage">Discount Percentage</label>
+        <input type="number" class="form-control" id="discountPercentage" [(ngModel)]="currentProduct.discountPercentage" name="discountPercentage">
+      </div>
+      <div class="form-group">
+        <label for="rating">Rating</label>
+        <input type="number" class="form-control" id="rating" [(ngModel)]="currentProduct.rating" name="rating">
+      </div>
+      <div class="form-group">
+        <label for="stock">Stock</label>
+        <input type="number" class="form-control" id="stock" [(ngModel)]="currentProduct.stock" name="stock">
+      </div>
+      <div class="form-group">
+        <label for="brand">Brand</label>
+        <input type="text" class="form-control" id="brand" [(ngModel)]="currentProduct.brand" name="brand">
+      </div>
+      <div class="form-group">
+        <label for="category">Category</label>
+        <input type="text" class="form-control" id="category" [(ngModel)]="currentProduct.category" name="category">
+      </div>
+      <div class="form-group">
+        <label for="thumbnail">Thumbnail URL</label>
+        <input type="text" class="form-control" id="thumbnail" [(ngModel)]="currentProduct.thumbnail" name="thumbnail">
+      </div>
+      <div class="form-group" style="overflow-x: auto;">
+        <label>Images</label>
+        <div class="d-flex flex-row">
+          <div *ngFor="let image of currentProduct.images" class="mx-2">
+            <img [src]="image" alt="" class="img-fluid mb-2" style="width: 50px; height: 50px; border-radius: 50%;">
+          </div>
+        </div>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+  </div>
+  <hr>
 
-
-  <table class="table table-striped table-striped-columns table-bordered">
+  <table class="table table-striped-columns table-bordered">
     <thead class="table-dark">
       <tr>
         <th>Thumbnail</th>
@@ -15,10 +76,12 @@
         <th>Stock</th>
         <th>Brand</th>
         <th>Category</th>
+        <th>Delete</th>
+        <th>More </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of products">
+      <tr *ngFor="let product of products" class="table" [ngClass]="rowColor(product.stock)">
         <td>
           <img [src]="product.thumbnail" alt="Product Thumbnail" *ngIf="product.thumbnail" />
         </td>
@@ -29,6 +92,8 @@
         <td>{{ product.stock }}</td>
         <td>{{ product.brand }}</td>
         <td>{{ product.category }}</td>
+        <td><button type="button" class="btn btn-danger" (click)="deleteProduct(product.id)">DEL</button></td>
+        <td><button type="button" class="btn btn-primary" (click)="moreButtonSelect(product)">MORE</button></td>
       </tr>
     </tbody>
   </table>
