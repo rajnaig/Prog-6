@@ -8,7 +8,6 @@
   <button type="button" class="btn btn-outline-warning" (click)="stockLevel()">Stock Level</button>
   <hr>
   <div class="alert alert-primary alert-dismissible fade show" role="alert">
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     <h2>Update Product</h2>
     <form #updateProductForm="ngForm" (submit)="updateProduct()">
       <div class="form-group">
@@ -97,5 +96,6 @@
       </tr>
     </tbody>
   </table>
+  
 </div>
 <router-outlet></router-outlet>
